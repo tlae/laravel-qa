@@ -6,11 +6,11 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                  <div class="d-inline-block float-left d-flex align-items-center">
+                  <div class="d-flex align-items-center">
                     <h2> All Questions</h2>
-                  </div>
-                  <div class="d-inline-block float-right ml-auto d-flex">
+                  <div class="ml-auto">
                     <a href="{{route('questions.create')}}"  class="btn btn-outline-secondary"> Ask Question</a>
+                  </div>
                   </div>
                 </div>
 
@@ -32,8 +32,14 @@
                           </div>
                         
                            <div class="media-body">
+                            <div class="d-flex align-items-center">
+                                <h3 class="mt-0"><a href="{{$question->url}}">{{ $question->title}}</a></h3>
+                                <div class="ml-auto">
+                                  <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">Edit</a>
+                                </div>
+                            </div>
 
-                           <h3 class="mt-0"><a href="{{$question->url}}">{{ $question->title}}</a></h3>
+                         
                            <p class="lead">
                              Asked by
                              <a href="{{$question->user->url}}">{{$question->user->name}}</a>
