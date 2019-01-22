@@ -8,6 +8,10 @@ use App\Http\Requests\AskQuestionRequest;
 
 class QuestionsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -63,10 +67,12 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        if (\Gate::allows('update-question', $question)) {
-            return view('questions.edit', compact('question'));
-        }
-        abort(403, "Access denied");
+        $this->authorize("update", $question);
+       
+        // if (\Gate::allows('update-question', $question)) {
+               return view('questions.edit', compact('question'));
+        // }
+        // abort(403, "Access denied");
     }
 
     /**
@@ -78,11 +84,13 @@ class QuestionsController extends Controller
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
-         if (\Gate::allows('update-question', $question)) {
-            $question->update($request->only('title', 'body'));
-            return redirect('questions')->with('success', "Your question has been updated.");
-        }
-        abort(403, "Access denied");
+        $this->authorize("update", $question);
+
+        //  if (\Gate::allows('update-question', $question)) {
+             $question->update($request->only('title', 'body'));
+             return redirect('questions')->with('success', "Your question has been updated.");
+        // }
+        // abort(403, "Access denied");
     }
 
     /**
@@ -93,11 +101,13 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-         if (\Gate::allows('delete-question', $question)) {
-             $question->delete();
-             return redirect('/questions')->with('success', "Your Question has been deleted.");
-        }
-        abort(403, "Access denied");
+            $this->authorize("delete", $question);
+
+        //  if (\Gate::allows('delete-question', $question)) {
+               $question->delete();
+               return redirect('/questions')->with('success', "Your Question has been deleted.");
+        // }
+        // abort(403, "Access denied");
        
     }
 }
