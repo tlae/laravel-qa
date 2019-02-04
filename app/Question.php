@@ -50,7 +50,7 @@ class Question extends Model
  		$this->save();
  	}
  	public function isFavorited() {
- 		return $this->favorites()->where('user_id', auth()->id())->count() > 0;
+ 		return $this->favorites->where('user_id', auth()->id())->count() > 0;
  	}
  	public function getIsFavoritedAttribute() {
  		return $this->isFavorited();
@@ -58,6 +58,17 @@ class Question extends Model
  	public function getFavoritesCountAttribute() {
  		return $this->favorites->count();
  	}
+
+ 	 public function votes() { 
+        return $this->morphToMany(User::class, 'votable');
+    }
+
+    public function upVotes() {
+    	return $this->votes()->wherePivot('vote', 1);
+    }
+     public function downVotes() {
+    	return $this->votes()->wherePivot('vote', -1);
+    }
  	
 
 }
