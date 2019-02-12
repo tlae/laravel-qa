@@ -18,7 +18,7 @@
                 
                 <div class="media">
                   <div class="d-flex flex-column vote-controls">
-                    <a title="This question is useful" class="vote-up"
+                    <a title="This question is useful "
                         class= "vote-up {{ Auth::guest() ? 'off' : '' }}"
                          onclick="event.preventDefault(); document.getElementById('up-vote-question-{{ $question->id }}').submit();"
                         > 
@@ -29,6 +29,7 @@
                             <input type="hidden" name="vote" value="1">
                         </form>
                     <span class="votes-count">{{ $question->votes_count }}</span>
+
                      <a title="This question is no useful" class="vote-down {{ Auth::guest() ? 'off' : '' }}"
                      onclick="event.preventDefault(); document.getElementById('down-vote-question-{{ $question->id }}').submit();"
                      > 
@@ -39,7 +40,7 @@
                             @csrf
                             <input type="hidden" name="vote" value="-1">
                         </form>
-                        
+
                      <a href="" title="Click to mark as favorite question (click again to undo)" 
                           class="favorite mt-2 {{ Auth::guest() ? 'off' : ($question->is_favorited ? 'favorited' : '') }}"
                            onclick="event.preventDefault(); document.getElementById('favorite-question-{{ $question->id }}').submit();"

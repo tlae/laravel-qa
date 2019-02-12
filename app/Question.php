@@ -50,7 +50,7 @@ class Question extends Model
  		$this->save();
  	}
  	public function isFavorited() {
- 		return $this->favorites->where('user_id', auth()->id())->count() > 0;
+ 		return $this->favorites->where('id', auth()->id())->count() > 0;
  	}
  	public function getIsFavoritedAttribute() {
  		return $this->isFavorited();
