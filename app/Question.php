@@ -43,7 +43,7 @@ class Question extends Model
  		return "unanswered";
  	}
  	public function getBodyHtmlAttribute() {
- 		return \Parsedown::instance()->text($this->body);
+ 		return \Parsedown::instance()->text(clean($this->body));
  	}
 
  	public function acceptBestAnswer(Answer $answer) {
