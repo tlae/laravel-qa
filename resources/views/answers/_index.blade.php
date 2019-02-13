@@ -34,25 +34,6 @@
                             <input type="hidden" name="vote" value="-1">
                         </form>
 
-                      @can ('accept', $answer)
-                         <a title="Mark this answer as best answer" 
-                            class="{{ $answer->status }} mt-2"
-                            onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit();"
-                            >
-                              <i class="fas fa-check fa-2x"></i>
-                          </a>
-
-                          <form id="accept-answer-{{ $answer->id }}" action="{{ route('answers.accept', $answer->id) }}" method="POST" style="disp:none;">
-                            @csrf
-                          </form>
-                          @else
-                            @if ($answer->is_best)
-                              <a title="The owner of question accepted this answer as best answer" 
-                                class="{{ $answer->status }} mt-2">
-                                  <i class="fas fa-check fa-2x"></i>
-                              </a>
-                              @endif
-                      @endcan
                         
                   </div>
               <div class="media-body">
@@ -76,17 +57,11 @@
                         
                       </div>
                       <div class="col-4">
-                       <span class="text-muted">
-                        "Answered {{  $answer->created_date }}"
-                        </span>
-                        <div class="media mt-2">
-                        <a href="{{ $answer->user->url }}" class="pr-2">
-                        <img src="{{ $answer->user->avatar }}" alt="">
-                         </a>
-                         <div class="media-body mg">
-                          <a href="{{ $answer->user->url}}">{{ $answer->user->name }}</a>
-                         </div>
-                          </div>
+                          @include ('shared._author', [
+                            'model' => $answer,
+                            'label' => 'Answered'
+
+                          ])
                       </div>
                 </div>
              
